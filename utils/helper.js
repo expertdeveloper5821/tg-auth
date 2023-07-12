@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-export const verifyToken = (req, res, next) => {
+export const verifyToken = (req, res) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) {
     return res.status(401).json({
@@ -22,7 +22,6 @@ export const verifyToken = (req, res, next) => {
   try {
     const decodedToken = jwt.verify(token, process.env.APP_SECRET);
     req.user = decodedToken;
-    next();
   } catch (error) {
     return res.status(401).json({
       message: 'You are not authenticated!',

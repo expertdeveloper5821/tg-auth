@@ -100,7 +100,7 @@ router.get(
 );
 
 // get role by id by super admin only
-router.get("/role/:id", helper.verifyToken, async (req, res, next) => {
+router.get("/role/:id", helper.verifyToken, async (req, res) => {
   if (req.user.role !== "superadmin") {
     return res.status(403).json({
       message: "You are not authorized to perform this operation.",
@@ -108,11 +108,11 @@ router.get("/role/:id", helper.verifyToken, async (req, res, next) => {
     });
   }
 
-  await getRoleById(req, res, next);
+  await getRoleById(req, res);
 });
 
 // get all role by admin
-router.get("/allrole", helper.verifyToken, async (req, res, next) => {
+router.get("/allrole", helper.verifyToken, async (req, res) => {
   if (req.user.role !== "superadmin") {
     return res.status(403).json({
       message: "You are not authorized to perform this operation.",
@@ -120,11 +120,11 @@ router.get("/allrole", helper.verifyToken, async (req, res, next) => {
     });
   }
 
-  await getAllRoles(req, res, next);
+  await getAllRoles(req, res);
 });
 
 // update role by id by  admin
-router.put("/updaterole/:id", helper.verifyToken, async (req, res, next) => {
+router.put("/updaterole/:id", helper.verifyToken, async (req, res) => {
   if (req.user.role !== "superadmin") {
     return res.status(403).json({
       message: "You are not authorized to perform this operation.",
@@ -132,11 +132,11 @@ router.put("/updaterole/:id", helper.verifyToken, async (req, res, next) => {
     });
   }
 
-  await updateRoleById(req, res, next);
+  await updateRoleById(req, res);
 });
 
 // delete role by id by  admin
-router.delete("/deleterole/:id", helper.verifyToken, async (req, res, next) => {
+router.delete("/deleterole/:id", helper.verifyToken, async (req, res) => {
   if (req.user.role !== "superadmin") {
     return res.status(403).json({
       message: "You are not authorized to perform this operation.",
@@ -144,7 +144,7 @@ router.delete("/deleterole/:id", helper.verifyToken, async (req, res, next) => {
     });
   }
 
-  await deleteRoleById(req, res, next);
+  await deleteRoleById(req, res);
 });
 
 //  send email for forget password

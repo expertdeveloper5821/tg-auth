@@ -228,28 +228,30 @@ const serializeUser = (user) => {
 };
 
 // get role by id
-const getRoleById = async (req, res, next) => {
+const getRoleById = async (req, res ) => {
   try {
     const { id } = req.params;
     let data = await User.findById(id);
     return res.json({ data });
   } catch (error) {
-    next(error);
+    console.error("Error getting details:", err);
+      res.status(500).json({ code: 500, message: "Error getting details" });
   }
 };
 
 // get all roles
-const getAllRoles = async (req, res, next) => {
+const getAllRoles = async (req, res ) => {
   try {
     const roles = await User.find({});
     res.status(200).json(roles);
   } catch (err) {
-    next(err);
+    console.error("Error getting details:", err);
+      res.status(500).json({ code: 500, message: "Error getting details" });
   }
 };
 
 // update roly by id
-const updateRoleById = async (req, res, next) => {
+const updateRoleById = async (req, res ) => {
   try {
     const updateRole = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -259,12 +261,13 @@ const updateRoleById = async (req, res, next) => {
     }
     return res.status(200).json({ user: updateRole });
   } catch (error) {
-    next(error);
+    console.error("Error update details:", err);
+      res.status(500).json({ code: 500, message: "Error update details" });
   }
 };
 
 // delete role by id
-const deleteRoleById = async (req, res, next) => {
+const deleteRoleById = async (req, res, ) => {
   try {
     const roledelete = await User.findByIdAndDelete(req.params.id);
     if (!roledelete) {
@@ -272,7 +275,8 @@ const deleteRoleById = async (req, res, next) => {
     }
     return res.status(200).json({ message: "role deleted" });
   } catch (error) {
-    next(error);
+    console.error("Error delete details:", err);
+      res.status(500).json({ code: 500, message: "Error delete details" });
   }
 };
 
